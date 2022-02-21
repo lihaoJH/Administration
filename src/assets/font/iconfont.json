@@ -1,0 +1,65 @@
+{
+  "id": "3180121",
+  "name": "sell",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1074897",
+      "name": "face",
+      "font_class": "face",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "1199328",
+      "name": "sad",
+      "font_class": "sad",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "1199336",
+      "name": "normal",
+      "font_class": "normal",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "15353",
+      "name": "主页",
+      "font_class": "zhuye",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "2932826",
+      "name": "订单 ",
+      "font_class": "dingdan",
+      "unicode": "e7fe",
+      "unicode_decimal": 59390
+    },
+    {
+      "icon_id": "7474658",
+      "name": "店铺管理",
+      "font_class": "dianpuguanli",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "10594769",
+      "name": "表-饼图_jurassic",
+      "font_class": "jurassic_pie-chart",
+      "unicode": "e6b3",
+      "unicode_decimal": 59059
+    },
+    {
+      "icon_id": "12497986",
+      "name": "商品管理",
+      "font_class": "shangpinguanli",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    }
+  ]
+}

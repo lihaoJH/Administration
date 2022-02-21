@@ -1,0 +1,50 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3180121 */
+  src: url('iconfont.eot?t=1645356294891'); /* IE9 */
+  src: url('iconfont.eot?t=1645356294891#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('iconfont.woff2?t=1645356294891') format('woff2'),
+       url('iconfont.woff?t=1645356294891') format('woff'),
+       url('iconfont.ttf?t=1645356294891') format('truetype'),
+       url('iconfont.svg?t=1645356294891#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-face:before {
+  content: "\e648";
+}
+
+.icon-sad:before {
+  content: "\e60f";
+}
+
+.icon-normal:before {
+  content: "\e613";
+}
+
+.icon-zhuye:before {
+  content: "\e63a";
+}
+
+.icon-dingdan:before {
+  content: "\e7fe";
+}
+
+.icon-dianpuguanli:before {
+  content: "\e601";
+}
+
+.icon-jurassic_pie-chart:before {
+  content: "\e6b3";
+}
+
+.icon-shangpinguanli:before {
+  content: "\e60c";
+}
+
