@@ -6,7 +6,8 @@ import "@/assets/commonCss/reset.less";
 import './plugins/element.js';
 import "./assets/font/iconfont.css"
 //设置echarts全局
-Vue.prototype.$Url="http://127.0.0.1:3000";
+Vue.prototype.$Url="/mockImg/";
+Vue.prototype.$imgUrl="http://localhost:8080";
 Vue.config.productionTip = false
 
 new Vue({

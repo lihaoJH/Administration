@@ -13,7 +13,7 @@
             <el-input v-model="ruleForm.account" prefix-icon="el-icon-user-solid"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input v-model="ruleForm.password" :type="active?'text':'password'" prefix-icon="el-icon-lock" >
+            <el-input v-model="ruleForm.password" :type="active?'text':'password'" show-password prefix-icon="el-icon-lock" >
               <i slot="suffix" suffix-icon="el-icon-view"></i>
             </el-input>
           </el-form-item>

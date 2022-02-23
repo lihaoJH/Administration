@@ -8,19 +8,19 @@
       label-width="120px"
       size="small"
     >
-      <el-form-item label="原密码：" prop="oldPassword">
-        <el-input v-model="userPassword.oldPassword"></el-input>
+      <el-form-item label="原密码：" prop="oldPassword" >
+        <el-input v-model="userPassword.oldPassword" show-password></el-input>
       </el-form-item>
       <el-form-item label="新密码：" prop="newPassword">
-        <el-input v-model="userPassword.newPassword"></el-input>
+        <el-input v-model="userPassword.newPassword" show-password></el-input>
       </el-form-item>
       <el-form-item label="确认新密码：" prop="confirmPassword">
-        <el-input v-model="userPassword.confirmPassword"></el-input>
+        <el-input v-model="userPassword.confirmPassword" show-password></el-input>
       </el-form-item>
       <el-form-item>
         <el-row>
           <el-button type="primary" @click="changePassword">确定</el-button>
-          <el-button @click="$refs.user.resetFields()">重置</el-button>
+          <el-button @click="$refs.userPassword.resetFields()">重置</el-button>
         </el-row>
       </el-form-item>
     </el-form>

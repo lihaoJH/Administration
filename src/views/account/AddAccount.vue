@@ -5,16 +5,16 @@
       :model="userAdd"
       :rules="userRules"
       style="width: 300px"
-      label-width="80px"
+      label-width="100px"
       size="small"
     >
       <el-form-item label="账号：" prop="account">
         <el-input v-model="userAdd.account"></el-input>
       </el-form-item>
-      <el-form-item label="密码：" prop="password">
-        <el-input v-model="userAdd.password"></el-input>
+      <el-form-item label="密码：" prop="password" >
+        <el-input v-model="userAdd.password" show-password></el-input>
       </el-form-item>
-      <el-form-item label="活动区域" prop="admin">
+      <el-form-item label="权限选择：" prop="admin">
         <el-select v-model="userAdd.admin" placeholder="请选择用户权限">
           <el-option label="普通管理员" value="普通管理员"></el-option>
           <el-option label="超级管理员" value="超级管理员"></el-option>

@@ -22,6 +22,8 @@
             v-model="addClassily.state"
             active-color="#13ce66"
             inactive-color="#ff4949"
+            :active-value="1"
+            :inactive-value="0"
           >
           </el-switch>
         </el-form-item>
@@ -44,7 +46,7 @@
         <template #default="props">
           <el-input
             v-model="props.row.cateName"
-            v-if="props.row.change"
+            v-if="props.row.flag"
           ></el-input>
           <p v-else>{{ props.row.cateName }}</p>
         </template>
@@ -53,9 +55,11 @@
         <template #default="props">
           <el-switch
             v-model="props.row.state"
+            :disabled="!props.row.flag"
             active-color="#13ce66"
             inactive-color="#ff4949"
-            :change="switchChange(props.row.state, props.row.id)"
+            :active-value="1"
+            :inactive-value="0"
           >
           </el-switch>
         </template>
@@ -65,20 +69,15 @@
           <el-row :invaild="true">
             <el-button
               type="success"
-              v-if="props.row.change"
+              v-if="props.row.flag"
               size="small"
-              @click="
-                props.row.change = cateNameChange(
-                  props.row.cateName,
-                  props.row.id
-                )
-              "
+              @click="cateNameChange(props.row)"
               >完成</el-button
             >
             <el-button
               size="small"
               v-else
-              @click="props.row.change = !props.row.change"
+              @click="props.row.flag = !props.row.flag"
               >编辑</el-button
             >
             <el-button
@@ -120,7 +119,7 @@ export default {
       dialogVisible: false,
       addClassily: {
         cateName: "",
-        state: true,
+        state: 0,
       },
     };
   },
@@ -133,43 +132,33 @@ export default {
       this.num = val;
     },
     //修改商品分类名
-    cateNameChange(val, id) {
-      upDateCateName({
-          id,
-          cateName: val,
-        })
-        .then((res) => {
-          this.$message.success(res.msg);
-          return true;
-        })
-        .catch((err) => {
-          if (err) return false;
-        });
+   async cateNameChange(data) {
+      await upDateCateName(data);
+      this.renderPage();
     },
     //删除商品分类名
     async cateNameDelete(id) {
-      let { msg } = await deleteCateName({ id });
+      await deleteCateName({ id });
       this.isDelete=true;
-      this.$message.success(msg);
       this.renderPage();
     },
     //页面重排
     async renderPage() {
       let { data } = await goodsClassily();
       this.rebder = [];
+      data.map(item=>{
+          item.flag=false;
+        return item;
+      })
       this.tableData = data;
       this.isDelete=false;
       if (data.length > this.num) {
         for (let i = 0; i < this.num; i++) {
           this.rebder.push(data[i]);
         }
+      }else{
+        this.rebder=data;
       }
-    },
-    //商品分类启用切换
-    switchChange(state, id) {
-      upDateSwitchChange({ id, state }).catch((err) => {
-        this.renderPage();
-      });
     },
     //商品添加分类的取消弹窗
     handleClose(done) {
@@ -188,11 +177,7 @@ export default {
         }
       }
       //发起添加请求
-      let { msg } = await addCateName({
-        cateName: this.addClassily.cateName,
-        state: Boolean(this.addClassily.state),
-      });
-      this.$message.success(msg);
+      await addCateName(this.addClassily);
       this.dialogVisible = false;
       this.renderPage();
     },

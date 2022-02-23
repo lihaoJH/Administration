@@ -137,8 +137,7 @@ export default {
     async singleDelete(data) {
       if (data.id === this.userInfo.id)
         return this.$message.error("不能删除自己哦");
-      let { msg } = await accountBatchDelete({ id: data.id });
-      this.$message.success(msg);
+      await accountBatchDelete({ id: data.id });
       this.renderPage();
     },
     //编辑信息弹出框
@@ -151,8 +150,7 @@ export default {
     },
     //确定编辑
     async editConfirm() {
-      let { msg } = await userInfoChange(this.user);
-      this.$message.success(msg);
+       await userInfoChange(this.user);
       this.dialogVisible = false;
       let { data } = await accountList();
       this.tableData = data;

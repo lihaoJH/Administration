@@ -14,14 +14,12 @@ export const goodsList=()=>get("/getData/goodsList");
 export const goodsClassily=()=>get("/getData/goodsClassily");
 //商品分类名修改
 export const upDateCateName=(val)=>post("/update/cateName",val);
-//商品分类状态改变
-export const upDateSwitchChange=(val)=>post("/update/switchChange",val);
 //删除商品分类名
 export const deleteCateName=(val)=>post("/delete/cateName",val);
 //添加商品分类名
 export const addCateName=(val)=>post("/add/cateName",val);
 //商品添加
-export const addShop=(val)=>file("/update/shopPhoto",val);
+export const addShop=(val)=>file("/add/shopPhoto",val);
 //商品信息修改
 export const goodsInfoChange=(val)=>file("/update/goods",val);
 //商品删除
@@ -38,3 +36,11 @@ export const userPhotoChange=(val)=>post("/update/userPhoto",val);
 export const addNewUser=(val)=>post("/add/user",val);
 //密码修改
 export const passwordChange=(val)=>post("/update/password",val);
+
+//店铺信息获取
+export const shopList=(val)=>get("/getData/shopInfo",val);
+//店铺图片删除
+export const deleteShopImg=(val)=>post("/delete/shopImg",val);
+
+//店铺信息修改
+export const changeShopInfo=(val)=>post("/update/shopInfo",val);

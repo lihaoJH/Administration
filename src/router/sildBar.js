@@ -75,7 +75,7 @@ export default [
     component:getComponent("sell","SellOrder")
   },
   {
-    //订单统计
+    //个人中心
     path:"/user",
     component:getComponent("user","User")
   },

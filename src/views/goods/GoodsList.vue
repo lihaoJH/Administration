@@ -15,7 +15,7 @@
                 shape="square"
                 size="medium"
                 fit="fill"
-                :src="$Url + props.row.imgUrl"
+                :src="$Url+ props.row.imgUrl"
               ></el-avatar>
             </el-form-item>
             <el-form-item label="商品评价 :">
@@ -51,8 +51,8 @@
           <el-avatar
             shape="square"
             :size="50"
-            fit="fill"
-            :src="$Url + props.row.imgUrl"
+            fit="cover"
+            :src="$Url+props.row.imgUrl"
           ></el-avatar>
         </template>
       </el-table-column>
@@ -200,15 +200,15 @@ export default {
     },
     //确定修改
     async startUpdateGoods() {
+      console.log(this.goodsInfo);
       for (let key in this.goodsInfo) {
-        if (!this.goodsInfo[key]) return this.$message.error("信息不能为空");
+        if (this.goodsInfo[key]==0||!this.goodsInfo[key]) return this.$message.error("信息不能为空");
       }
       let fd = new FormData();
       for (let key in this.goodsInfo) {
         fd.append(key, this.goodsInfo[key]);
       }
-      let { msg } = await goodsInfoChange(fd);
-      this.$message.success(msg);
+       await goodsInfoChange(fd);
       this.dialogFormVisible = false;
       this.getGoodsList();
       delete this.goodsInfo.file;
@@ -250,8 +250,10 @@ export default {
     async getGoodsList() {
       this.render = [];
       let { data } = await goodsList();
+      console.log(data);
       data=data.map(item=>{
         delete item.ratings
+        item.rating=Number(item.rating);
         return item
       } )
       this.tableData = data;
@@ -260,6 +262,8 @@ export default {
         for (let i = 0; i < this.num; i++) {
           this.render.push(data[i]);
         }
+      }else{
+        this.render=data;
       }
     },
   },

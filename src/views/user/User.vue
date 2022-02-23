@@ -20,11 +20,11 @@
       <label for="headerPhoto">管理员头像:</label>
       <el-upload
         class="avatar-uploader"
-        :action="$Url+'/update/userPhoto'"
+        :action="$imgUrl+'/update/userPhoto'"
         :headers="{
             'Authorization':'Bearer-'+token
         }"
-        :data="{id:userInfo.id}"
+        :data="userInfo"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
@@ -54,6 +54,7 @@ export default {
   },
   methods: {
     handleAvatarSuccess(res,file) {
+      console.log(res);
         if(res.code)return this.$message.error(res.msg);
         this.userInfo.imgUrl=res.data.imgUrl;
         this.updateUserInfo(this.userInfo);

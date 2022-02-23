@@ -2,15 +2,15 @@
 import axios from "axios";
 import Vue from "vue";
 import router from "../router/router.js";
-import { Loading } from "element-ui";
+import { Loading,Message } from "element-ui";
 import state from "../store/state";
 // import { Alert } from "element-ui" //自定义错误页面
 import store from "../store/store";
 
 axios.defaults.timeout = 6000;
 if (process.env.NODE_ENV == "development") {
-  axios.defaults.baseURL = "http://127.0.0.1:3000"; //开发环境的接口地址
-  // axios.defaults.baseURL="";
+  // axios.defaults.baseURL = "http://127.0.0.1:3000"; //开发环境的接口地址
+  axios.defaults.baseURL="";
 } else {
   axios.defaults.baseURL = ""; //生产环境的接口地址
 }
@@ -43,9 +43,7 @@ axios.interceptors.response.use(
       const { code, msg, data } = response.data;
       if (code === 0) {
         resolve({ msg, data });
-        if (msg && msg.includes("登录")) {
-          Vue.prototype.$message({ message: msg, type: "success" });
-        }
+        if(msg)return  Message({ message: msg, type: "success" });
       } else {
         if (code == 401) {
           Vue.prototype.$message.error(msg);
