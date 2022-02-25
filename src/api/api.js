@@ -6,6 +6,8 @@ export const login=(login)=>post('/api/login',login);
 export const sildMenu=()=>get('/getData/menuList');
 //数据图表
 export const census=()=>get('/getData/census');
+//订单数据图标
+export const orderCensus=()=>get("/getData/orderCensus")
 //订单列表
 export const orderList=()=>get('/getData/orderList');
 //商品列表

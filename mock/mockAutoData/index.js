@@ -13,10 +13,12 @@ let obj = Mock.mock({
       "endTime": "19:32:00",
       "other|1": ["微辣","轻度辣","中辣","特辣","变态辣"],
       "price|100-200.2":110.11,
-      "status|1":["已受理","未受理"],
+      "status|1":["已受理","未受理","派送中"],
     },
   ],
 });
+
+
 
 fs.readFile(path.join(__dirname,"../mockData/order.json"),"utf-8",(err,data)=>{
     if(err)return;

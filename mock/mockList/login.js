@@ -11,7 +11,6 @@ module.exports=app=>{
             data=JSON.parse(data);
             let [user]=data.filter(item=>item.account==account);
             if(!user)return res.send({code:1,msg:"用户名不存在"})
-            console.log(md5(password));
             if(user.password==md5(password)){
                 let crypted=crypto.AES.encrypt(`${new Date().getTime()}-${user.id}`,"Bearer").toString();
                 res.send({
@@ -20,6 +19,7 @@ module.exports=app=>{
                     data:{
                         id:user.id,
                         admin:user.admin,
+                        role:user.role,
                         token:crypted,
                         account:user.account,
                         imgUrl:`acc_img/${user.imgUrl}`,

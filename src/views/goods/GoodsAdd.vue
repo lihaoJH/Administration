@@ -16,18 +16,7 @@
       </el-form-item>
 
       <el-form-item label="商品价格">
-        <div class="inps_price">
-          <el-input v-model="goods.price" type="text" class="inps_price">
-            <template #prepend>
-              <el-button @click="goods.price > 0 ? goods.price-- : 0"
-                >-</el-button
-              >
-            </template>
-            <template #append>
-              <el-button @click="goods.price++">+</el-button>
-            </template>
-          </el-input>
-        </div>
+           <el-input-number v-model="goods.price"  :min="1" :max="10" ></el-input-number>
       </el-form-item>
       <el-form-item label="商品图片">
         <el-upload
@@ -92,8 +81,7 @@ export default {
       for (let key in obj) {
         fromData.append(key, obj[key]);
       }
-      let { msg } = await addShop(fromData);
-      this.$message.success(msg);
+      await addShop(fromData);
       for (let key in this.goods) {
         if (key != "classily") {
           this.goods[key] = "";
@@ -137,10 +125,8 @@ export default {
 <style lang="less" scoped>
 .el-form-goods {
   flex: 1;
-  width: 30%;
-  .inps_price {
-    width: auto;
-  }
+  max-width: 300px;
+  
 }
 .avatar-uploader,
 .el-upload {

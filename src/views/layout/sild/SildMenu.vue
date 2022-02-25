@@ -19,7 +19,7 @@
         </div>
         <template v-for="item in cardList">
           <el-submenu
-            :index="item.router ? item.router : item.id"
+            :index="item.router"
             v-if="item.children"
             :key="item.id"
           >
@@ -37,7 +37,7 @@
             </el-menu-item-group>
           </el-submenu>
           <el-menu-item
-            :index="item.router ? item.router : item.id"
+            :index="item.router "
             v-else
             :key="item.id"
           >
@@ -53,6 +53,7 @@
 <script>
 import { mapMutations, mapState } from "vuex";
 import {sildMenu} from "@api/api.js";
+import {getData}from "@router/rights.js"
 export default {
   name: "SildMenu",
   data() {
@@ -94,11 +95,10 @@ export default {
     //获取数据
     async getSildMenu() {
       let { data } = await sildMenu();
-      if (this.userInfo.admin === "超级管理员") {
-        this.cardList = data;
-      } else {
-        this.cardList = data.filter((item) => item.title != "账号管理");
-      }
+        data=data.filter(item=>{
+          return getData(item,this.userInfo.role)
+        })
+        this.cardList=data
     },
     ...mapMutations(["addOpenList"]),
   },

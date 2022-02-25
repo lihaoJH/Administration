@@ -6,15 +6,62 @@ module.exports=app=>{
         res.send({
             code:0,
             data:{
-                xData:["2022-2-1","2022-2-2","2022-2-3","2022-2-4","2022-2-5","2022-2-6","2022-2-7"],
-                data:{
-                    order: [2000,300,1500,130,200,200,500],
-                    volume: [1200,2300,3000,1000,800,600,1000],
-                    resgNum: [300,800,400,300,1000,5,500],
-                    adminNum: [2,2,2,300,2,2,55],
-                }
-            }
+              XData:['2022/02/01', '2022/02/02', '2022/02/03', '2022/02/04', '2022/02/05'],
+              source:[
+                  {
+                  type:"Email",
+                  data: [120, 132, 101, 134, 90, 230, 210]
+              },
+                  {
+                  type:"Union",
+                  data:[220, 182, 191, 234, 290, 330, 310]
+              },
+                  {
+                  type:"Video",
+                  data: [320, 332, 301, 334, 390, 330, 320]
+              },
+                  {
+                  type:"Direct",
+                  data:  [820, 932, 901, 934, 1290, 1330, 1320]
+              },
+                  {
+                  type:"Search",
+                  data: [150, 232, 201, 154, 190, 330, 410]
+              },
+              ]
+        }
         })
+    })
+    //订单图标
+    app.get("/getData/orderCensus",(req,res)=>{
+      res.send({
+        code:0,
+        data:{
+          title:['Email', 'Union', 'Video', 'Direct', 'Search'],
+          source:[
+            {
+            name:"Email",
+            value:150
+          },
+            {
+            name:"Union",
+            value:150
+          },
+            {
+            name:"Video",
+            value:150
+          },
+            {
+            name:"Direct",
+            value:150
+          },
+            {
+            name:"Search",
+            value:150
+          },
+        ]
+        }
+      })
     })
     //菜单导航
     app.get("/getData/menuList",(req,res)=>{
@@ -24,34 +71,40 @@ module.exports=app=>{
                 id: "1",
                 title: "后台首页",
                 router: "/home",
+                role:"super,nomal",
                 icon: "el-icon-s-home",
               },
               {
                 id: "2",
                 title: "订单管理",
                 router: "/order",
+                role:"super,nomal",
                 icon: "el-icon-s-order",
               },
               {
                 id: "3",
                 title: "商品管理",
                 icon: "el-icon-goods",
-                router: "/goods-list",
+                role:"super,nomal",
+                router: "/goods",
                 children: [
                   {
                     id: "3-1",
                     title: "商品列表",
                     router: "/goods-list",
+                    role:"super,nomal",
                   },
                   {
                     id: "3-2",
                     title: "商品添加",
                     router: "/goods-add",
+                    role:"super,nomal",
                   },
                   {
                     id: "3-3",
                     title: "商品分类",
                     router: "/goods-classily",
+                    role:"super,nomal",
                   },
                 ],
               },
@@ -60,27 +113,32 @@ module.exports=app=>{
                 router: "/shop",
                 icon: "el-icon-s-shop",
                 title: "店铺管理",
+                role:"super",
               },
               {
                 id: "5",
                 icon: "el-icon-s-custom",
                 title: "账号管理",
                 router: "/account",
+                role:"super,nomal",
                 children: [
                   {
                     id: "5-1",
                     router: "/account-list",
                     title: "账号列表",
+                    role:"super",
                   },
                   {
                     id: "5-2",
                     router: "/account-add",
                     title: "添加账号",
+                    role:"super",
                   },
                   {
                     id: "5-3",
-                    router: "/up-password",
+                    router: "/account-upPassword",
                     title: "修改密码",
+                    role:"super,nomal",
                   },
                 ],
               },
@@ -89,16 +147,19 @@ module.exports=app=>{
                 icon: "el-icon-pie-chart",
                 title: "销售统计",
                 router: "/sell",
+                role:"super",
                 children: [
                   {
                     id: "6-1",
                     router: "/sell-goods",
                     title: "商品统计",
+                    role:"super",
                   },
                   {
                     id: "6-2",
                     router: "/sell-order",
                     title: "订单统计",
+                    role:"super",
                   },
                 ],
               }]
@@ -167,6 +228,9 @@ module.exports=app=>{
           data:arr
         })
       })
+    })
+    app.get("/getSell",(req,res)=>{
+        
     })
 }
 // console.log(path.join(__dirname,"../mockData/order.json"));

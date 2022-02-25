@@ -10,10 +10,18 @@
           class="demo-ruleForm"
         >
           <el-form-item prop="account">
-            <el-input v-model="ruleForm.account" prefix-icon="el-icon-user-solid"></el-input>
+            <el-input
+              v-model="ruleForm.account"
+              prefix-icon="el-icon-user-solid"
+            ></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input v-model="ruleForm.password" :type="active?'text':'password'" show-password prefix-icon="el-icon-lock" >
+            <el-input
+              v-model="ruleForm.password"
+              :type="active ? 'text' : 'password'"
+              show-password
+              prefix-icon="el-icon-lock"
+            >
               <i slot="suffix" suffix-icon="el-icon-view"></i>
             </el-input>
           </el-form-item>
@@ -27,40 +35,41 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import {login} from "@api/api.js"
+import { mapMutations, mapState } from "vuex";
+import { login,sildMenu } from "@api/api.js";
+import {getRouter}from "../../router/router.js"
 export default {
   name: "Login",
   data() {
     return {
       ruleForm: { account: "", password: "" },
-      active:true,
+      active: true,
       rules: {
         account: [
           { required: true, message: "请输入账号", trigger: "blur" },
           {
-            validator(rule,value,callback){
-              let accountReg=/^[a-z|A-z|\u4E00-\u9FA5]{2,6}$/
-                if(!accountReg.test(value)){
-                  callback(new Error("账号为2-6位字符"));
-                }else{
-                    callback();
-                }
-            }
-          }
+            validator(rule, value, callback) {
+              let accountReg = /^[a-z|A-z|\u4E00-\u9FA5]{2,6}$/;
+              if (!accountReg.test(value)) {
+                callback(new Error("账号为2-6位字符"));
+              } else {
+                callback();
+              }
+            },
+          },
         ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
           {
-            validator(rules,value,callback){
-              let passwordReg=/^[a-z|A-z|0-9]{2,6}$/
-                if(!passwordReg.test(value)){
-                  callback(new Error("密码为2-6位字符"));
-                }else{
-                    callback();
-                }
-            }
-          }
+            validator(rules, value, callback) {
+              let passwordReg = /^[a-z|A-z|0-9]{2,6}$/;
+              if (!passwordReg.test(value)) {
+                callback(new Error("密码为2-6位字符"));
+              } else {
+                callback();
+              }
+            },
+          },
         ],
       },
     };
@@ -69,22 +78,33 @@ export default {
     loginSubmit() {
       this.$refs["ruleForm"].validate(async (bool) => {
         if (bool) {
-       let {data}=  await login(this.ruleForm)
-              this.COMMIT_TOKEN({
-                token: data.token,
-              });
-              this.updateUserInfo({
-                account: data.account,
-                admin: data.admin,
-                ctime: data.ctime,
-                imgUrl: data.imgUrl,
-                id: data.id,
-              });
-              this.$router.push("/");
+          let { data } = await login(this.ruleForm);
+          this.COMMIT_TOKEN({
+            token: data.token,
+          });
+          this.updateUserInfo({
+            account: data.account,
+            admin: data.admin,
+            ctime: data.ctime,
+            imgUrl: data.imgUrl,
+            id: data.id,
+            role: data.role,
+          });
+          this.getSildMenu();
+          this.$router.push("/");
         }
       });
     },
-    ...mapMutations(["COMMIT_TOKEN", "updateUserInfo"]),
+   
+    async getSildMenu() {
+      let { data } = await sildMenu();
+      this.updateRouter(data)
+      getRouter(data);
+    },
+    ...mapMutations(["COMMIT_TOKEN", "updateUserInfo","updateRouter"]),
+  },
+  computed: {
+    ...mapState(["userInfo"]),
   },
 };
 </script>

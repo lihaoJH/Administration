@@ -1,6 +1,7 @@
 const state={
     token:"",
     openList:[],
-    userInfo:{}
+    userInfo:{},
+    routerList:[]
 }
 export default state;

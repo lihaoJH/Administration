@@ -3,18 +3,6 @@ const multer = require("multer");
 const path = require("path");
 const utils=require("../utils");
 const md5=require("md5");
-// fs.writeFile(
-//   "../mockData/add.json",
-//   '[{"name":"lihao"}]',
-//   { encoding: "utf8" },
-//   (err) => {
-//     console.log(err);
-//   }
-// );
-// fs.readFile("../mockData/add.json", "utf-8", (err, data) => {
-//   if (err) return res.send({code:1,msg:"数据库出错"});
-//   JSON.parse(data).push(obj)
-// });
 module.exports = (app) => {
   //添加商品分类名
   app.post("/add/cateName", (req, res) => {
@@ -124,12 +112,25 @@ module.exports = (app) => {
         } else {
           data = JSON.parse(data);
         }
+        if(data.some(item=>item.account==account))return res.send({code:1,msg:"该用户已存在"})
         let id = data.length?data.length:1;
         while (data.some((item) => item.id == id)) {
           id++;
         }
+        
         let obj={
           account,password:md5(password),admin,id,ctime:utils.formateDate(new Date(),"/",1),imgUrl:`default.jpg`
+        }
+        switch (admin) {
+          case "普通管理员":
+              obj.role="nomal"
+            break;
+          case "超级管理员":
+            obj.role="super"
+            break;
+        
+          default:
+            break;
         }
         data.push(obj);
         let jsonStr=JSON.stringify(data);

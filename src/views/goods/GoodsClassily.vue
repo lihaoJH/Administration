@@ -5,6 +5,7 @@
       size="small"
       slot="btn"
       @click="dialogVisible = true"
+      v-if="userInfo.role==='super'"
       >添加分类</el-button
     >
     <el-dialog
@@ -64,7 +65,7 @@
           </el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" >
         <template #default="props">
           <el-row :invaild="true">
             <el-button
@@ -103,6 +104,7 @@
 <script>
 import Panel from "@components/Panel.vue";
 import Pagination from "@components/Pagination.vue";
+import {mapState}from "vuex"
 import { addCateName, goodsClassily,deleteCateName,upDateCateName,upDateSwitchChange } from "@api/api.js";
 export default {
   name: "GoodsClassly",
@@ -181,6 +183,9 @@ export default {
       this.dialogVisible = false;
       this.renderPage();
     },
+  },
+  computed:{
+    ...mapState(["userInfo"])
   },
   created() {
     this.renderPage();

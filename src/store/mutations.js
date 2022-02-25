@@ -16,6 +16,9 @@ const mutations={
            } ;
            state[key]="";
         }
+    },
+    updateRouter(state,arr){
+        state.routerList=JSON.parse(JSON.stringify(arr));
     }
 }
 export default mutations;

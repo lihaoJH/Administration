@@ -17,8 +17,11 @@
       </el-form-item>
       <el-form-item label="订单状态">
         <el-select v-model="formInline.status" placeholder="订单状态">
-          <el-option label="已受理" value="shanghai"></el-option>
-          <el-option label="未受理" value="beijing"></el-option>
+          <el-option label="已受理" value="已受理"></el-option>
+          <el-option label="未受理" value="未受理"></el-option>
+          <el-option label="派送中" value="派送中"></el-option>
+          <el-option label="无" value=""></el-option>
+
         </el-select>
       </el-form-item>
       <el-form-item label="选择时间">
@@ -43,17 +46,17 @@
     >
       <el-table-column prop="num" label="订单号"> </el-table-column>
       <el-table-column prop="startTime" label="下单时间"> </el-table-column>
-      <el-table-column prop="tell" label="手机号" width="120">
+      <el-table-column prop="tell" label="手机号" >
       </el-table-column>
       <el-table-column prop="user" label="收货人"> </el-table-column>
-      <el-table-column prop="adress" label="配送地址" width="270">
+      <el-table-column prop="adress" label="配送地址" >
       </el-table-column>
       <el-table-column prop="endTime" label="送达时间"> </el-table-column>
       <el-table-column prop="other" label="用户备注"> </el-table-column>
       <el-table-column prop="price" label="订单金额"> </el-table-column>
       <el-table-column prop="status" label="订单状态"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
-        <template slot-scope="scope">
+        <template slot-scope="scope" fixed="right">
           <el-button @click="handleClick(scope.row)" type="text" size="small"
             >查看</el-button
           >
@@ -63,7 +66,7 @@
     </el-table>
     <div class="block">
       <pagination
-        :orderData="[orderData, [6, 10]]"
+        :orderData="[orderData, [6, 10],isDelete]"
         @sizeChanage="getSizeChange"
         @currentChange="getCurrentChange"
       ></pagination>
@@ -83,6 +86,7 @@ export default {
   },
   data() {
     return {
+      isDelete:false,
       formInline: {
         num: "",
         user: "",
@@ -113,7 +117,8 @@ export default {
       } else {
         this.renderData = this.query;
       }
-      this.orderData = this.renderData;
+      this.orderData = this.query;
+      this.isDelete=true;
     },
     handleClick(data) {
       console.log(data);
@@ -145,8 +150,8 @@ export default {
       return this.tableData.filter((item) => {
         let bool = true;
         for (let key in obj) {
-          if (item[key] != obj[key]) {
-            return (bool = false);
+          if (!String(item[key]).includes(obj[key])) {
+            bool=false;
           }
         }
         return bool;

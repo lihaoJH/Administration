@@ -58,7 +58,7 @@
       </el-table-column>
       <el-table-column label="商品描述" prop="goodsDesc" width="300">
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" >
         <template #default="props">
           <el-row>
             <el-button
@@ -200,7 +200,6 @@ export default {
     },
     //确定修改
     async startUpdateGoods() {
-      console.log(this.goodsInfo);
       for (let key in this.goodsInfo) {
         if (this.goodsInfo[key]==0||!this.goodsInfo[key]) return this.$message.error("信息不能为空");
       }
@@ -250,7 +249,6 @@ export default {
     async getGoodsList() {
       this.render = [];
       let { data } = await goodsList();
-      console.log(data);
       data=data.map(item=>{
         delete item.ratings
         item.rating=Number(item.rating);

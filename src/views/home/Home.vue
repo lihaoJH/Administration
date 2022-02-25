@@ -30,91 +30,39 @@
         </div>
       </div>
     </div>
-    <div id="census-main" class="census"></div>
+    <div class="census">
+      <line-char :data="charData"></line-char>
+    </div>
   </div>
 </template>
 
 <script>
-import {init} from "echarts";
+import LineChar from "@components/LineChar.vue"
 import {census } from"@api/api.js"
 export default {
   name: "Home",
+  components:{
+    LineChar
+  },
+  data(){
+    return {
+        charData:""
+    }
+  },
   methods: {
-    initCharts({ xData, data }) {
-      let myChart = init(document.getElementById("census-main"));
-      myChart.setOption({
-        title: {
-          text: "数据统计",
-          left: "3%",
-          top: "3%",
-        },
-        tooltip: {
-          trigger: "axis",
-        },
-        legend: {
-          top: "3%",
-          data: ["订单", "销售额", "注册人数", "管理员人数"],
-        },
-        grid: {
-          left: "3%",
-          right: "4%",
-          bottom: "3%",
-          containLabel: true,
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {},
-          },
-        },
-        xAxis: {
-          type: "category",
-          axisTick: {
-            alignWithLabel: true,
-          },
-          boundaryGap: false,
-          data: xData,
-        },
-        yAxis: {
-          type: "value",
-        },
-        series: [
-          {
-            name: "订单",
-            type: "line",
-            stack: "Total",
-            data: data.order,
-          },
-          {
-            name: "销售额",
-            type: "line",
-            stack: "Total",
-            data: data.volume,
-          },
-          {
-            name: "注册人数",
-            type: "line",
-            stack: "Total",
-            data: data.resgNum,
-          },
-          {
-            name: "管理员人数",
-            type: "line",
-            stack: "Total",
-            data: data.adminNum,
-          },
-        ],
-      });
-    },
+    
   },
   async created() {
     let { data } = await census();
-    this.initCharts(data);
+      this.charData=data;
   },
 };
 </script>
 
 <style lang="less" scoped>
 .content1 {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
 }
@@ -156,9 +104,9 @@ export default {
   }
 }
 .census {
+  flex: 1;
   margin-top: 40px;
   width: 100%;
-  height: 400px;
   background-color: #fff;
   overflow: hidden;
 }
